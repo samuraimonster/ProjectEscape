@@ -26,15 +26,9 @@ public class RoomManager : MonoBehaviour
 
     void Start()
     {
-        changeSideSubject.Subscribe(index =>
-        {
-            ChangeSide(index);
-        });
+        changeSideSubject.Subscribe(ChangeSide);
 
-        changeRoomSubject.Subscribe(index =>
-        {
-            ChangeRoom(index);
-        });
+        changeRoomSubject.Subscribe(ChangeRoom);
 
         currentRoom = rooms[currentRoomIndex];
         currentSide = currentRoom.sides[currentSideIndex];

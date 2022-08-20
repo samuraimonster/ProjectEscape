@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SendRoomMessageManager : MonoBehaviour
+public class SendMessageRoom : MonoBehaviour
 {
     private RoomManager roomManager;
 
@@ -18,7 +18,6 @@ public class SendRoomMessageManager : MonoBehaviour
 
     public void SendChangeRoom(int index)
     {
-        Debug.Log("room");
         roomManager.changeRoomSubject.OnNext(index);
     }
 }
