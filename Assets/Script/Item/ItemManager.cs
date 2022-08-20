@@ -42,15 +42,17 @@ public class ItemManager : MonoBehaviour
 
     void ShowItem(int index)
     {
-        Debug.Log(itemBoxies[index].transform.GetChild(0).name);
-        var item = itemBoxies[index].transform.GetChild(0).GetComponent<Image>();
-        bigItemImage.sprite = item.sprite;
-        bigItemCanvas.blocksRaycasts = true;
-        bigItemCanvas.alpha = 1;
-        mainCanvas.blocksRaycasts = false;
-        mainCanvas.alpha = 0.5f;
-        uiCanvas.blocksRaycasts = false;
-        uiCanvas.alpha = 0.5f;
+        if(itemBoxies[index].transform.childCount != 0)
+        {
+            var item = itemBoxies[index].transform.GetChild(0).GetComponent<Image>();
+            bigItemImage.sprite = item.sprite;
+            bigItemCanvas.blocksRaycasts = true;
+            bigItemCanvas.alpha = 1;
+            mainCanvas.blocksRaycasts = false;
+            mainCanvas.alpha = 0.5f;
+            uiCanvas.blocksRaycasts = false;
+            uiCanvas.alpha = 0.5f;
+        }
     }
 
     public void CloseItem()
