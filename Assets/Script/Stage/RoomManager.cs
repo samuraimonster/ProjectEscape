@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 public class RoomManager : MonoBehaviour
 {
-    public Subject<int> changeSideSubject = new Subject<int>();
-
     public Subject<int> changeRoomSubject = new Subject<int>();
 
     public List<GameObject> buttons = new List<GameObject>();
@@ -16,25 +14,29 @@ public class RoomManager : MonoBehaviour
     [Header("•”‰®")]
     public List<RoomEntity> rooms = new List<RoomEntity>();
 
-    private int currentRoomIndex = 0;
+    public ItemManager ItemManager;
 
-    private int currentSideIndex = 0;
+    private int currentRoomIndex = 0;
 
     private RoomEntity currentRoom;
 
-    private GameObject currentSide;
+    private List<GameObject> sides = new List<GameObject>();
+
+    private int currentSideIndex = 0;
 
     void Start()
     {
-        changeSideSubject.Subscribe(ChangeSide);
-
         changeRoomSubject.Subscribe(ChangeRoom);
 
         currentRoom = rooms[currentRoomIndex];
-        currentSide = currentRoom.sides[currentSideIndex];
-        currentSide = Instantiate(currentSide);
-        currentSide.transform.SetParent(this.transform, false);
-        foreach(var button in buttons)
+        foreach(var side in currentRoom.sides)
+        {
+            var ob =Instantiate(side, this.transform.position, Quaternion.identity, this.transform);
+            sides.Add(ob);
+            ob.SetActive(false);
+        }
+        sides[currentSideIndex].SetActive(true);
+        foreach (var button in buttons)
         {
             button.SetActive(rooms[currentRoomIndex].isVisible);
         }
@@ -42,58 +44,28 @@ public class RoomManager : MonoBehaviour
 
     public void ChangeSideNext()
     {
-        Destroy(currentSide);
-        if(currentSideIndex == rooms[currentRoomIndex].sides.Count - 1)
+        sides[currentSideIndex].SetActive(false);
+        currentSideIndex++;
+        if (currentSideIndex == sides.Count)
         {
             currentSideIndex = 0;
         }
-        else
-        {
-            currentSideIndex++;
-        }
-
-        currentSide = currentRoom.sides[currentSideIndex];
-        currentSide = Instantiate(currentSide);
-        currentSide.transform.SetParent(this.transform, false);
+        sides[currentSideIndex].SetActive(true);
     }
 
     public void ChangeSideBack()
     {
-        Destroy(currentSide);
-        if (currentSideIndex == 0)
+        sides[currentSideIndex].SetActive(false);
+        currentSideIndex--;
+        if (currentSideIndex == -1)
         {
-            currentSideIndex = rooms[currentRoomIndex].sides.Count - 1;
+            currentSideIndex = sides.Count - 1;
         }
-        else
-        {
-            currentSideIndex--;
-        }
-        currentSide = currentRoom.sides[currentSideIndex];
-        currentSide = Instantiate(currentSide);
-        currentSide.transform.SetParent(this.transform, false);
-    }
-
-    public void ChangeSide(int index)
-    {
-        Destroy(currentSide);
-        currentSide = currentRoom.sides[index];
-        currentSide = Instantiate(currentSide);
-        currentSide.transform.SetParent(this.transform, false);
-        currentSideIndex = index;
+        sides[currentSideIndex].SetActive(true);
     }
 
     public void ChangeRoom(int index)
     {
-        Destroy(currentSide);
-        currentSideIndex = 0;
-        currentRoomIndex = index;
-        currentRoom = rooms[currentRoomIndex];
-        foreach (var button in buttons)
-        {
-            button.SetActive(rooms[currentRoomIndex].isVisible);
-        }
-        currentSide = currentRoom.sides[currentSideIndex];
-        currentSide = Instantiate(currentSide);
-        currentSide.transform.SetParent(this.transform, false);
+
     }
 }

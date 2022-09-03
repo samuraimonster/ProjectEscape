@@ -8,6 +8,8 @@ public class ItemManager : MonoBehaviour
 {
     public Subject<int> showIten = new Subject<int>();
 
+    public Subject<Image> addIten = new Subject<Image>();
+
     [Header("メインキャンバスグループ")]
     public CanvasGroup mainCanvas;
 
@@ -21,37 +23,67 @@ public class ItemManager : MonoBehaviour
     public Image bigItemImage;
 
     [Header("アイテム欄")]
-    public List<GameObject> itemBoxies = new List<GameObject>();
+    public List<ItemData> itemBoxies;
 
-    [Header("各アイテム")]
-    public List<GameObject> items = new List<GameObject>();
+    private int currentAddIndex = 0;
 
-    private List<GameObject> currentItems = new List<GameObject>();
+    private int selectIndex = -1;
 
     void Start()
     {
         showIten.Subscribe(ShowItem);
+        addIten.Subscribe(AddItem);
         bigItemCanvas.blocksRaycasts = false;
         bigItemCanvas.alpha = 0;
     }
 
-    void Update()
+    void AddItem(Image image)
     {
-        
+        var ob = Instantiate(image, itemBoxies[currentAddIndex].itenBox.transform.position, Quaternion.identity, itemBoxies[currentAddIndex].itenBox.transform);
+        currentAddIndex++;
     }
 
     void ShowItem(int index)
     {
-        if(itemBoxies[index].transform.childCount != 0)
+        if(itemBoxies[index].itenBox.transform.childCount != 0)
         {
-            var item = itemBoxies[index].transform.GetChild(0).GetComponent<Image>();
-            bigItemImage.sprite = item.sprite;
-            bigItemCanvas.blocksRaycasts = true;
-            bigItemCanvas.alpha = 1;
-            mainCanvas.blocksRaycasts = false;
-            mainCanvas.alpha = 0.5f;
-            uiCanvas.blocksRaycasts = false;
-            uiCanvas.alpha = 0.5f;
+            if (itemBoxies[index].isSelect)
+            {
+                var item = itemBoxies[index].itenBox.transform.GetChild(0).GetComponent<Image>();
+                bigItemImage.sprite = item.sprite;
+                bigItemCanvas.blocksRaycasts = true;
+                bigItemCanvas.alpha = 1;
+                mainCanvas.blocksRaycasts = false;
+                mainCanvas.alpha = 0.5f;
+                uiCanvas.blocksRaycasts = false;
+                uiCanvas.alpha = 0.5f;
+            }
+            else
+            {
+                if(selectIndex >= 0)
+                {
+                    if(selectIndex == index)
+                    {
+                        itemBoxies[selectIndex].itenBox.GetComponent<Image>().color = Color.white;
+                        itemBoxies[selectIndex].isSelect = false;
+                        selectIndex = -1;
+                    }
+                    else
+                    {
+                        itemBoxies[selectIndex].itenBox.GetComponent<Image>().color = Color.white;
+                        itemBoxies[selectIndex].isSelect = false;
+                        itemBoxies[index].itenBox.GetComponent<Image>().color = Color.blue;
+                        itemBoxies[index].isSelect = true;
+                        selectIndex = index;
+                    }
+                }
+                else
+                {
+                    itemBoxies[index].itenBox.GetComponent<Image>().color = Color.blue;
+                    itemBoxies[index].isSelect = true;
+                    selectIndex = index;
+                }
+            }
         }
     }
 
