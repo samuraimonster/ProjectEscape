@@ -10,5 +10,4 @@ public class ItemData
 
     [NonSerialized]
     public bool isSelect;
-
 }

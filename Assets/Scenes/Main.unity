@@ -2570,10 +2570,10 @@ MonoBehaviour:
   bigItemCanvas: {fileID: 109190498}
   bigItemImage: {fileID: 806852910}
   itemBoxies:
-  - {fileID: 965478667}
-  - {fileID: 1729272073}
-  - {fileID: 1589697337}
-  - {fileID: 1677287493}
+  - itenBox: {fileID: 965478667}
+  - itenBox: {fileID: 1729272073}
+  - itenBox: {fileID: 1589697337}
+  - itenBox: {fileID: 1677287493}
 --- !u!225 &1933049239
 CanvasGroup:
   m_ObjectHideFlags: 0
