@@ -8,7 +8,7 @@ public class ItemManager : MonoBehaviour
 {
     public Subject<int> showIten = new Subject<int>();
 
-    public Subject<Image> addIten = new Subject<Image>();
+    public Subject<ItemEntity> addIten = new Subject<ItemEntity>();
 
     [Header("メインキャンバスグループ")]
     public CanvasGroup mainCanvas;
@@ -25,21 +25,76 @@ public class ItemManager : MonoBehaviour
     [Header("アイテム欄")]
     public List<ItemData> itemBoxies;
 
+    [System.NonSerialized]
+    public List<ItemEntity> itemList = new();
+
+    public List<ItemEntity> margeItemList;
+
     private int currentAddIndex = 0;
 
     private int selectIndex = -1;
+
+    private int selectBigIndex = -1;
 
     void Start()
     {
         showIten.Subscribe(ShowItem);
         addIten.Subscribe(AddItem);
+
         bigItemCanvas.blocksRaycasts = false;
         bigItemCanvas.alpha = 0;
     }
 
-    void AddItem(Image image)
+    public void GetMargeItem(ItemType item)
     {
-        var ob = Instantiate(image, itemBoxies[currentAddIndex].itenBox.transform.position, Quaternion.identity, itemBoxies[currentAddIndex].itenBox.transform);
+        ItemEntity itemEntity = null;
+        foreach(var margeItem in margeItemList)
+        {
+            if(margeItem.item == item)
+            {
+                itemEntity = margeItem;
+                break;
+            }
+        }
+
+        bigItemImage.sprite = itemEntity.image.sprite;
+        var entiry = bigItemImage.GetComponent<ItemEntity>();
+        entiry.image = itemEntity.image;
+        entiry.item = itemEntity.item;
+
+        itemList[selectBigIndex].ChangeData(itemEntity);
+        Destroy(itemList[selectIndex].gameObject);
+        itemList.RemoveAt(selectIndex);
+
+        itemBoxies[selectIndex].itenBox.GetComponent<Image>().color = Color.white;
+        itemBoxies[selectIndex].isSelect = false;
+        selectIndex = selectBigIndex;
+        itemBoxies[selectBigIndex].itenBox.GetComponent<Image>().color = Color.blue;
+        itemBoxies[selectBigIndex].isSelect = true;
+
+        currentAddIndex = itemList.Count;
+
+    }
+
+    public ItemEntity GetCurrentItemEntity()
+    {
+        if(selectIndex == -1)
+        {
+            return null;
+        }
+
+        if(itemList.Count == 0)
+        {
+            return null;
+        }
+
+        return itemList[selectIndex];
+    }
+
+    void AddItem(ItemEntity itemEntity)
+    {   
+        var ob = Instantiate(itemEntity, itemBoxies[currentAddIndex].itenBox.transform.position, Quaternion.identity, itemBoxies[currentAddIndex].itenBox.transform);
+        itemList.Add(ob);
         currentAddIndex++;
     }
 
@@ -49,14 +104,22 @@ public class ItemManager : MonoBehaviour
         {
             if (itemBoxies[index].isSelect)
             {
-                var item = itemBoxies[index].itenBox.transform.GetChild(0).GetComponent<Image>();
-                bigItemImage.sprite = item.sprite;
+                var item = itemList[index];
+                bigItemImage.sprite = item.image.sprite;
+                var entiry = bigItemImage.GetComponent<ItemEntity>();
+                entiry.image = item.image;
+                entiry.item = item.item;
+
+
                 bigItemCanvas.blocksRaycasts = true;
                 bigItemCanvas.alpha = 1;
+
                 mainCanvas.blocksRaycasts = false;
                 mainCanvas.alpha = 0.5f;
+
                 uiCanvas.blocksRaycasts = false;
                 uiCanvas.alpha = 0.5f;
+                selectBigIndex = index;
             }
             else
             {
@@ -91,9 +154,13 @@ public class ItemManager : MonoBehaviour
     {
         bigItemCanvas.blocksRaycasts = false;
         bigItemCanvas.alpha = 0;
+
         mainCanvas.blocksRaycasts = true;
         mainCanvas.alpha = 1f;
+
         uiCanvas.blocksRaycasts = true;
         uiCanvas.alpha = 1f;
+
+        selectBigIndex = -1;
     }
 }

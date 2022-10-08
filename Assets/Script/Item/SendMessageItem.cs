@@ -21,7 +21,7 @@ public class SendMessageItem : MonoBehaviour
     {
         var button = this.gameObject.GetComponent<Button>();
         Destroy(button);
-        itemManager.addIten.OnNext(this.gameObject.GetComponent<Image>());
+        itemManager.addIten.OnNext(this.GetComponent<ItemEntity>());
         Destroy(this.gameObject);
     }
 }

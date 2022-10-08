@@ -66,6 +66,6 @@ public class RoomManager : MonoBehaviour
 
     public void ChangeRoom(int index)
     {
-
+        Debug.Log("NEXT_ROOM");
     }
 }
