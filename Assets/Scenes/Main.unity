@@ -2661,6 +2661,7 @@ MonoBehaviour:
   - itenBox: {fileID: 1677287493}
   margeItemList:
   - {fileID: 8480990611289753426, guid: 74f7b0d9a17134a45af1763b3cce7bda, type: 3}
+  - {fileID: 8480990611289753426, guid: 9b771074881032848bb204048aafe6cb, type: 3}
 --- !u!225 &1933049239
 CanvasGroup:
   m_ObjectHideFlags: 0
