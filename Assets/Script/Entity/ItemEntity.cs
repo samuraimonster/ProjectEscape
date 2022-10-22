@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public enum ItemType
 {
+    Paper,
+    Battery,
     Scop1,
     Scop2,
     Scop3,

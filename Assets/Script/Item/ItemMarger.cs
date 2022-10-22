@@ -28,6 +28,10 @@ public class ItemMarger : MonoBehaviour
                     itemManager.GetMargeItem(ItemType.Scop3);
                 }
                 break;
+            case ItemType.Paper:
+                itemManager.GetDisassemblyItem(ItemType.Battery);
+                break;
+
         }
     }
 }

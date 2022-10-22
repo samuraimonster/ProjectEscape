@@ -44,7 +44,25 @@ public class ItemManager : MonoBehaviour
         bigItemCanvas.blocksRaycasts = false;
         bigItemCanvas.alpha = 0;
     }
+    public void GetDisassemblyItem(ItemType item)
+    {
+        ItemEntity itemEntity = null;
+        foreach (var margeItem in margeItemList)
+        {
+            if (margeItem.item == item)
+            {
+                itemEntity = margeItem;
+                break;
+            }
+        }
 
+        bigItemImage.sprite = itemEntity.image.sprite;
+        var entiry = bigItemImage.GetComponent<ItemEntity>();
+        entiry.image = itemEntity.image;
+        entiry.item = itemEntity.item;
+
+        itemList[selectBigIndex].ChangeData(itemEntity);
+    }
     public void GetMargeItem(ItemType item)
     {
         ItemEntity itemEntity = null;
@@ -73,7 +91,6 @@ public class ItemManager : MonoBehaviour
         itemBoxies[selectBigIndex].isSelect = true;
 
         currentAddIndex = itemList.Count;
-
     }
 
     public ItemEntity GetCurrentItemEntity()
