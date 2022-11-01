@@ -80,15 +80,30 @@ public class ItemManager : MonoBehaviour
         entiry.image = itemEntity.image;
         entiry.item = itemEntity.item;
 
-        itemList[selectBigIndex].ChangeData(itemEntity);
-        Destroy(itemList[selectIndex].gameObject);
-        itemList.RemoveAt(selectIndex);
+        if(selectBigIndex < selectIndex)
+        {
+            itemList[selectBigIndex].ChangeData(itemEntity);
+            Destroy(itemList[selectIndex].gameObject);
+            itemList.RemoveAt(selectIndex);
 
-        itemBoxies[selectIndex].itenBox.GetComponent<Image>().color = Color.white;
-        itemBoxies[selectIndex].isSelect = false;
-        selectIndex = selectBigIndex;
-        itemBoxies[selectBigIndex].itenBox.GetComponent<Image>().color = Color.blue;
-        itemBoxies[selectBigIndex].isSelect = true;
+            itemBoxies[selectIndex].itenBox.GetComponent<Image>().color = Color.white;
+            itemBoxies[selectIndex].isSelect = false;
+            selectIndex = selectBigIndex;
+            itemBoxies[selectBigIndex].itenBox.GetComponent<Image>().color = Color.blue;
+            itemBoxies[selectBigIndex].isSelect = true;
+        }
+        else
+        {
+            itemList[selectIndex].ChangeData(itemEntity);
+            Destroy(itemList[selectBigIndex].gameObject);
+            itemList.RemoveAt(selectBigIndex);
+
+            itemBoxies[selectBigIndex].itenBox.GetComponent<Image>().color = Color.white;
+            itemBoxies[selectBigIndex].isSelect = false;
+            selectBigIndex = selectIndex;
+            itemBoxies[selectIndex].itenBox.GetComponent<Image>().color = Color.blue;
+            itemBoxies[selectIndex].isSelect = true;
+        }
 
         currentAddIndex = itemList.Count;
     }
