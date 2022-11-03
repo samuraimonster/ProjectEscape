@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 3390324386571492343}
   - component: {fileID: 7422686508579929307}
   - component: {fileID: 1527617722806600335}
-  - component: {fileID: 7503327061533094602}
   - component: {fileID: 8549026699940894872}
-  - component: {fileID: 8805758271024042132}
+  - component: {fileID: -1115880561158447655}
   m_Layer: 5
   m_Name: Scop1
   m_TagString: Untagged
@@ -79,18 +78,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7503327061533094602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4467240432427005933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b46c474c8f712004cb50d91d92b47d3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8549026699940894872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,7 +97,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -134,20 +121,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1527617722806600335}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7503327061533094602}
-        m_TargetAssemblyTypeName: SendMessageItem, Assembly-CSharp
-        m_MethodName: SendAddItem
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &8805758271024042132
+      m_Calls: []
+--- !u!114 &-1115880561158447655
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,8 +131,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4467240432427005933}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5571637641dc19e47bd0215b6f85302a, type: 3}
+  m_Script: {fileID: 11500000, guid: 7aa9f71ad33057440abe2670d35bfa7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 1527617722806600335}
-  item: 2
+  itemEntity:
+    itemtype: 0
+    image: {fileID: 1527617722806600335}
+  button: {fileID: 8549026699940894872}
