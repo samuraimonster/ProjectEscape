@@ -33,7 +33,7 @@ public class ItemViewer : MonoBehaviour
         {
             item.button.onClick.AddListener(() => 
             {
-                Select(item.index);
+                Select(item.holdItemEntity.index);
             });
         }
 
@@ -44,14 +44,15 @@ public class ItemViewer : MonoBehaviour
 
         bigItemButton.onClick.AddListener(() =>
         {
-            Debug.Log(holdItemBoxList[bigSelectIndex].item.itemtype);
-            Debug.Log(holdItemBoxList[selectIndex].item.itemtype);
-            var item = ItemManager.Instance.ItemCheck(holdItemBoxList[bigSelectIndex].item.itemtype, holdItemBoxList[selectIndex].item.itemtype);
+            var item = ItemManager.Instance.ItemCheck(holdItemBoxList[bigSelectIndex].holdItemEntity.item.itemtype, holdItemBoxList[selectIndex].holdItemEntity.item.itemtype);
             if (item == null) return;
 
-            ItemManager.Instance.Delete(holdItemBoxList[selectIndex].item);
-            ItemManager.Instance.Delete(holdItemBoxList[bigSelectIndex].item);
-            ItemManager.Instance.Add(item.itemEntity);
+            var holdItem = new HoldItemEntity(item, bigSelectIndex);
+            ItemManager.Instance.Change(holdItem);
+            if(bigSelectIndex != selectIndex)
+            {
+                ItemManager.Instance.Delete(holdItemBoxList[selectIndex].holdItemEntity.item);
+            }
             Select(bigSelectIndex);
             Visible(true);
         });
@@ -61,7 +62,7 @@ public class ItemViewer : MonoBehaviour
     {
         if(index != selectIndex)
         {
-            if (holdItemBoxList[index].item == null) return;
+            if (holdItemBoxList[index].holdItemEntity.item == null) return;
 
             if(selectIndex != -1) holdItemBoxList[selectIndex].image.color = Color.white;
 
@@ -81,11 +82,11 @@ public class ItemViewer : MonoBehaviour
         {
             if(i < itemList.Count)
             {
-                holdItemBoxList[i].item = itemList[i];
+                holdItemBoxList[i].holdItemEntity.item = itemList[i];
             }
             else
             {
-                holdItemBoxList[i].item = null;
+                holdItemBoxList[i].holdItemEntity.item = null;
             }
         }
     }
@@ -96,7 +97,7 @@ public class ItemViewer : MonoBehaviour
         {
             bigItemCanvas.alpha = 1;
             bigItemCanvas.blocksRaycasts = true;
-            bigImage.sprite = holdItemBoxList[selectIndex].item.image.sprite;
+            bigImage.sprite = holdItemBoxList[selectIndex].holdItemEntity.item.image.sprite;
         }
         else
         {
@@ -107,19 +108,20 @@ public class ItemViewer : MonoBehaviour
 
     private void Update()
     {
+
         for (int i = 0; i < holdItemBoxList.Count; i++)
         {
-            if (holdItemBoxList[i].item == null)
+            if (holdItemBoxList[i].holdItemEntity.item == null)
             {
                 imageList[i].enabled = false;
                 imageList[i].sprite = null;
                 continue;
             }
 
-            if(holdItemBoxList[i].item.image != null)
+            if(holdItemBoxList[i].holdItemEntity.item != null)
             {
                 imageList[i].enabled = true;
-                imageList[i].sprite = holdItemBoxList[i].item.image.sprite;
+                imageList[i].sprite = holdItemBoxList[i].holdItemEntity.item.image.sprite;
             }
         }
     }

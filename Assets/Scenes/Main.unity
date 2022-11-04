@@ -1172,9 +1172,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a402a58a4f142540a8a254731bfb362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holdItemEntity:
+    index: 0
   image: {fileID: 965478669}
   button: {fileID: 965478671}
-  index: 0
 --- !u!1 &966532478
 GameObject:
   m_ObjectHideFlags: 0
@@ -2483,9 +2484,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a402a58a4f142540a8a254731bfb362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holdItemEntity:
+    index: 2
   image: {fileID: 1589697339}
   button: {fileID: 1589697341}
-  index: 2
 --- !u!1 &1677287493
 GameObject:
   m_ObjectHideFlags: 0
@@ -2621,9 +2623,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a402a58a4f142540a8a254731bfb362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holdItemEntity:
+    index: 3
   image: {fileID: 1677287495}
   button: {fileID: 1677287497}
-  index: 3
 --- !u!1 &1699340856
 GameObject:
   m_ObjectHideFlags: 0
@@ -2835,9 +2838,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a402a58a4f142540a8a254731bfb362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holdItemEntity:
+    index: 1
   image: {fileID: 1729272075}
   button: {fileID: 1729272077}
-  index: 1
 --- !u!1 &1795400448
 GameObject:
   m_ObjectHideFlags: 0

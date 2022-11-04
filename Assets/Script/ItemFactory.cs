@@ -15,13 +15,18 @@ public class ItemFactory : MonoBehaviour
         ItemManager.Instance.OnItemAdd.Subscribe(item =>
         {
             holdItemList.Add(item);
-
             itemViewer.UpdateView(holdItemList);
         });
 
         ItemManager.Instance.OnItemDelete.Subscribe(item =>
         {
             holdItemList.Remove(item);
+            itemViewer.UpdateView(holdItemList);
+        });
+
+        ItemManager.Instance.OnItemChange.Subscribe(item =>
+        {
+            holdItemList[item.index] = item.item;
             itemViewer.UpdateView(holdItemList);
         });
     }

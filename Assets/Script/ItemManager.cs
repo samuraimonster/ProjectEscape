@@ -27,6 +27,7 @@ public class ItemManager : MonoBehaviour
 
     private Subject<ItemEntity> itemAddSubject = new();
     private Subject<ItemEntity> itemDeleteSubject = new();
+    private Subject<HoldItemEntity> itemChangeSubject = new();
 
     public IObservable<ItemEntity> OnItemAdd
     {
@@ -36,6 +37,11 @@ public class ItemManager : MonoBehaviour
     public IObservable<ItemEntity> OnItemDelete
     {
         get { return itemDeleteSubject; }
+    }
+
+    public IObservable<HoldItemEntity> OnItemChange
+    {
+        get { return itemChangeSubject; }
     }
 
     public void Add(ItemEntity item)
@@ -48,13 +54,21 @@ public class ItemManager : MonoBehaviour
         itemDeleteSubject.OnNext(item);
     }
 
-    public Item ItemCheck(Itemtype bigItemtype, Itemtype itemtype)
+    public void Change(HoldItemEntity item)
+    {
+        itemChangeSubject.OnNext(item);
+    }
+
+    public ItemEntity ItemCheck(Itemtype bigItemtype, Itemtype itemtype)
     {
         if(bigItemtype == Itemtype.Scop1 && itemtype == Itemtype.Scop2)
         {
-            return itemList[(int)Itemtype.Scop3];
+            return itemList[(int)Itemtype.Scop3].itemEntity;
         }
-
+        else if (bigItemtype == Itemtype.Paper)
+        {
+            return itemList[(int)Itemtype.Battery].itemEntity;
+        }
         return null;
     }
 }
