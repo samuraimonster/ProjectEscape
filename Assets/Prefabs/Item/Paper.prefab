@@ -137,4 +137,5 @@ MonoBehaviour:
   itemEntity:
     itemtype: 3
     image: {fileID: 1973562833997988692}
+    text: Paper
   button: {fileID: 8792502940642119914}

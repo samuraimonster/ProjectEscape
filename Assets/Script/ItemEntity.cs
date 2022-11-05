@@ -10,4 +10,5 @@ public class ItemEntity
 
     public Image image;
 
+    public string text;
 }

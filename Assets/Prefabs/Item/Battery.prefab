@@ -137,4 +137,5 @@ MonoBehaviour:
   itemEntity:
     itemtype: 4
     image: {fileID: 8868749600794249747}
+    text: Battery
   button: {fileID: 1905760293966485933}

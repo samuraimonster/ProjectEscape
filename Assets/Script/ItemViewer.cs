@@ -71,6 +71,7 @@ public class ItemViewer : MonoBehaviour
         }
         else
         {
+            TalkManager.Instance.TextChange(holdItemBoxList[index].holdItemEntity.item.text);
             Visible(true);
             bigSelectIndex = index;
         }

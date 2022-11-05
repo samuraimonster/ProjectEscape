@@ -137,4 +137,5 @@ MonoBehaviour:
   itemEntity:
     itemtype: 0
     image: {fileID: 1527617722806600335}
+    text: Scop1
   button: {fileID: 8549026699940894872}
